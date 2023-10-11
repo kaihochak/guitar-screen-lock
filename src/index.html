@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Guitar Screen Lock</title>
+
+    <link href="/styles.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+    <!-- Unlocked Screen -->
+
+    <!-- Title -->
+    <h1 class="text-3xl font-bold underline">
+        Guitar Screen Lock
+    </h1>
+
+    <!-- main content -->
+    <div id="guitar-container">
+
+        <!-- Guitar -->
+        <div id="guitar" class="relative">
+
+            <!-- Fretboard -->
+            <div id="fretboard" class="alsolute grid grid-cols-4 gap-4">
+                <button id="f1s1" class="fret text-[30px]">1</button>
+                <button id="f1s2" class="fret">2</button>
+                <button id="f1s3" class="fret">3</button>
+                <button id="f1s4" class="fret">4</button>
+                <button id="f1s5" class="fret">1</button>
+                <button id="f1s6" class="fret">2</button>
+                <button id="f2s1" class="fret">1</button>
+                <button id="f2s2" class="fret">2</button>
+                <button id="f2s3" class="fret">1</button>
+                <button id="f2s4" class="fret">2</button>
+                <button id="f2s5" class="fret">1</button>
+                <button id="f2s6" class="fret">2</button>
+                <button id="f3s1" class="fret">1</button>
+                <button id="f3s2" class="fret">2</button>
+                <button id="f3s3" class="fret">1</button>
+                <button id="f3s4" class="fret">2</button>
+                <button id="f3s5" class="fret">1</button>
+                <button id="f3s6" class="fret">2</button>
+                <button id="f4s1" class="fret">1</button>
+                <button id="f4s2" class="fret">2</button>
+                <button id="f4s3" class="fret">1</button>
+                <button id="f4s4" class="fret">2</button>
+                <button id="f4s5" class="fret">1</button>
+                <button id="f4s6" class="fret">2</button>
+            </div>
+
+            <!-- Strings -->
+            <div id="strings" class="alsolute grid grid-cols-6 gap-6">
+                <div id="s1" class="string">
+                    <button id="strum1">E</button>
+                </div>
+                <div id="s2" class="string">
+                    <button id="strum2">A</button>
+                </div>
+                <div id="s3" class="string">
+                    <button id="strum3">D</button>
+                </div>
+                <div id="s4" class="string">
+                    <button id="strum4">G</button>
+                </div>
+                <div id="s5" class="string">
+                    <button id="strum5">B</button>
+                </div>
+                <div id="s6" class="string">
+                    <button id="strum6">E</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Unlocked Screen -->
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
