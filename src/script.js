@@ -10,10 +10,6 @@ var correctFrets = ["f2s4","f3s5","f2s6"]; // D major
 var correctStrings = ["strum3","strum4","strum5","strum6"]; // D major
 
 
-
-
-
-
 /*
  * onClick handler for each fret button.
  * Toggles the appearance of the fret to indicate being pressed
