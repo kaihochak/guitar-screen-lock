@@ -73,6 +73,52 @@ function bindStringButtonsToFunction() {
 
 
 
+/*
+ * Reset the guitar and all selections
+ */
+function reset() {
+    fretsClicked = [];
+    stringsClicked = [];
+
+    document.querySelectorAll("button.fret").forEach((fret) => {
+        fret.style.background = "";
+    });
+    
+    document.querySelectorAll("div.string button").forEach((string) => {
+        string.style.background = "";
+    });
+}
+
+
+
+/*
+ * Bind the input button to the verification function
+ * When clicked, the selected frets and strings are compared against
+ * the correct chord combination. If correct, phone unlocks
+ * else, everything is cleared and user is able to try again
+ */ 
+function initVerification() {
+
+    ////////////////////////// Temporary //////////////// 
+    // click title to submit input
+    // Can't think of a good way to submit input
+    // another button? a strum button that plays a guitar sound?
+    document.querySelector('h1').onclick = function() {
+        console.log("verifying input chord");
+
+        // if chosen frets and strings match the saved password, unlock
+        if(fretsClicked.sort().join(',')=== correctFrets.sort().join(',') && 
+            stringsClicked.sort().join(',')=== stringsClicked.sort().join(',')) {
+            console.log("correct chord entered . . . unlocking phone");
+            // TODO: change page to unlocked phone screen
+            document.querySelector('body').style.background = 'green'; //temp
+        } else {
+            console.log("incorrect chord . . . clearing entry");
+            reset();
+        }
+    }
+}
+
 
 
 
@@ -81,4 +127,6 @@ function bindStringButtonsToFunction() {
 function init() {
     bindFretButtonsToFunction();
     bindStringButtonsToFunction();
+
+    initVerification();
 }
