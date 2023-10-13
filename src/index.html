@@ -15,47 +15,47 @@
 
     <!-- Unlocked Screen -->
 
-    <!-- Title -->
-    <h1 class="text-3xl font-bold underline">
-        Guitar Screen Lock
-    </h1>
-
     <!-- main content -->
-    <div id="guitar-container">
+    <div id="container" class="flex flex-col">
+
+        <!-- Title -->
+        <h1 id="title" class="text-3xl font-bold underline ">
+            Guitar Screen Lock
+        </h1>
 
         <!-- Guitar -->
-        <div id="guitar">
+        <div id="guitar" class="flex flex-col">
 
             <!-- Fretboard -->
-            <div id="fretboard" class="alsolute grid grid-cols-4 gap-4">
+            <div id="fretboard" 
+                class="border-x-pink-500 border-2 rounded-lg
+                        grid grid-cols-4 gap-4">
+                <!-- fret 1 -->
                 <button id="f1s1" class="fret"></button>
                 <button id="f1s2" class="fret"></button>
                 <button id="f1s3" class="fret"></button>
                 <button id="f1s4" class="fret"></button>
                 <button id="f1s5" class="fret"></button>
                 <button id="f1s6" class="fret"></button>
+                <!-- fret 2 -->
                 <button id="f2s1" class="fret"></button>
                 <button id="f2s2" class="fret"></button>
                 <button id="f2s3" class="fret"></button>
                 <button id="f2s4" class="fret"></button>
                 <button id="f2s5" class="fret"></button>
                 <button id="f2s6" class="fret"></button>
+                <!-- fret 3 -->
                 <button id="f3s1" class="fret"></button>
                 <button id="f3s2" class="fret"></button>
                 <button id="f3s3" class="fret"></button>
                 <button id="f3s4" class="fret"></button>
                 <button id="f3s5" class="fret"></button>
                 <button id="f3s6" class="fret"></button>
-                <button id="f4s1" class="fret"></button>
-                <button id="f4s2" class="fret"></button>
-                <button id="f4s3" class="fret"></button>
-                <button id="f4s4" class="fret"></button>
-                <button id="f4s5" class="fret"></button>
-                <button id="f4s6" class="fret"></button>
             </div>
 
             <!-- Strings -->
-            <div id="strings" class="alsolute grid grid-cols-6 gap-6">
+            <div id="strings" 
+                class="grid grid-cols-6 border-2 gap-4">
                 <div id="s1" class="string">
                     <button id="strum1"></button>
                 </div>
