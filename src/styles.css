@@ -93,3 +93,16 @@ button.fret:hover {
     cursor: pointer;
     transition: background 0.2s;
 }
+
+div.string button {
+    background: transparent;
+    border: none;
+    width: 30px;
+    height: 30px;
+    transition: background-color 0.5s; /* Default transition duration */
+
+    /* Shorter transition duration when turning on (hover) */
+    &:hover {
+        transition: background-color 0.2s; /* Adjust this duration for turning on */
+    }
+}
