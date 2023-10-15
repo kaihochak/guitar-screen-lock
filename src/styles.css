@@ -1,6 +1,6 @@
 /* Add this CSS to your "styles.css" file */
 
-#container {
+#main {
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -19,7 +19,7 @@
 /* guitar */
 #guitar {
     width: 350px;
-    height: 85vh;
+    /* height: 85vh; */
     flex-direction: column;
     align-items: center;
     justify-content: center;
