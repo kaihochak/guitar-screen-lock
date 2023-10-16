@@ -36,66 +36,6 @@ function switchScreen() {
     }
 }
 
-function initSlideUpGesture2() {
-    const startScreen = document.getElementById('startScreen');
-    const guitarScreen = document.getElementById('guitarScreen');
-
-    let startY = null;
-
-    function handleStart(event) {
-        if (event.touches) {
-            // Touch events
-            startY = event.touches[0].clientY;
-        } else {
-            // Mouse events
-            startY = event.clientY;
-            console.log("Mouse down at " + startY);
-        }
-    }
-
-    function handleEnd(event) {
-        if (startY !== null) {
-            let currentY;
-            if (event.changedTouches) {
-                // Touch events
-                currentY = event.changedTouches[0].clientY;
-            } else {
-                // Mouse events
-                currentY = event.clientY;
-                console.log("Mouse move at " + currentY);
-            }
-
-            // Calculate the distance between the start and current touch/mouse positions
-            // and determine if the user has slid up to at least half the screen
-            const deltaY = currentY - startY;
-            const screenHeight = window.innerHeight; // Get the screen height
-
-            const threshold = event.changedTouches ? (screenHeight / 3) : 2;
-
-            console.log("Delta Y: " + deltaY);
-            console.log("Threshold: " + -threshold);
-            console.log("Screen height: " + (-screenHeight / 3));
-            if (deltaY < -screenHeight / 2) {
-                // Transition to the guitar screen
-                console.log("Transitioning to guitar screen");
-                currentScreen = 'guitarScreen';
-                switchScreen();
-            }
-            startY = null;
-        }
-    }
-
-    // support for touch events
-    document.addEventListener('touchstart', handleStart);
-    document.addEventListener('touchend', handleEnd);
-
-    // support for mouse events
-    document.addEventListener('mousedown', handleStart);
-    document.addEventListener('mouseup', handleEnd);
-}
-
-
-
 function initSlideUpGesture() {
 
     let startY = null;
@@ -104,6 +44,7 @@ function initSlideUpGesture() {
         if (event.touches) {
             // Touch events
             startY = event.touches[0].clientY;
+
         } else {
             // Mouse events
             startY = event.clientY;
@@ -113,38 +54,48 @@ function initSlideUpGesture() {
 
     function handleEnd(event) {
         if (startY !== null) {
-            let currentY;
-            if (event.changedTouches) {
-                // Touch events
-                currentY = event.changedTouches[0].clientY;
-            } else {
-                // Mouse events
-                currentY = event.clientY;
-                console.log("Mouse move at " + currentY);
+
+            console.log(window.innerHeight * 1 / 6);
+            // if start screen, startY should be at the bottom of the screen
+            // if guitar screen, startY should be at the top of the screen
+            if ((currentScreen === 'startScreen' && startY > window.innerHeight * 5 / 6)
+                || currentScreen === 'guitarScreen' && startY < window.innerHeight * 1 / 6) {
+
+
+                let currentY;
+                if (event.changedTouches) {
+                    // Touch events
+                    currentY = event.changedTouches[0].clientY;
+                } else {
+                    // Mouse events
+                    currentY = event.clientY;
+                    console.log("Mouse move at " + currentY);
+                }
+
+                // Calculate the distance between the start and current touch/mouse positions
+                // and determine if the user is sliding up to the guitar screen
+                const deltaY = currentY - startY;
+                const screenHeight = window.innerHeight; // Get the screen height
+                const threshold = event.changedTouches ? (screenHeight / 3) : 2;
+
+                console.log("Delta Y: " + deltaY);
+                console.log("Threshold: " + -threshold);
+                console.log("Screen height: " + (-screenHeight / 3));
+
+                if (deltaY < -threshold) { // Adjust the threshold as needed
+                    // Transition to the guitar screen
+                    console.log("Transitioning to guitar screen");
+                    currentScreen = 'guitarScreen';
+                    switchScreen();
+                } else if (deltaY > threshold) { // Adjust the threshold as needed
+                    // Transition to the start screen
+                    console.log("Transitioning to start screen");
+                    currentScreen = 'startScreen';
+                    switchScreen();
+                }
+                startY = null;
+
             }
-
-            // Calculate the distance between the start and current touch/mouse positions
-            // and determine if the user is sliding up to the guitar screen
-            const deltaY = currentY - startY;
-            const screenHeight = window.innerHeight; // Get the screen height
-            const threshold = event.changedTouches ? (screenHeight / 3) : 2;
-
-            console.log("Delta Y: " + deltaY);
-            console.log("Threshold: " + -threshold);
-            console.log("Screen height: " + (-screenHeight / 3));
-
-            if (deltaY < -threshold) { // Adjust the threshold as needed
-                // Transition to the guitar screen
-                console.log("Transitioning to guitar screen");
-                currentScreen = 'guitarScreen';
-                switchScreen();
-            } else if (deltaY > threshold) { // Adjust the threshold as needed
-                // Transition to the start screen
-                console.log("Transitioning to start screen");
-                currentScreen = 'startScreen';
-                switchScreen();
-            }
-            startY = null;
         }
     }
 
@@ -176,19 +127,26 @@ function onStringClick() {
     console.log("Clicked string # " + this.id);
     logButtonID(this.id); // Log the ID when the button is clicked
 
-    this.style.background = 'red'; // Highlight the button immediately on click
-    stringsClicked.push(this.id); // add this string to the input combination
+    if (this.style.background != 'red') {
+        this.style.background = 'red'; // change color of strings to indicate being strummed
+        stringsClicked.push(this.id); // add this fret to the input combination
+    } else {
+        this.style.background = ''; // revert color to not strum
+        stringsClicked.pop(this.id); // remove fret from input combination
+    }
 
     console.log(stringsClicked); // log current string combination
 }
+
 
 function onStringMouseOver() {
     if (event.buttons === 1) { // Check if the left mouse button is clicked
         console.log("Mouse over string # " + this.id);
         logButtonID(this.id); // Log the ID when the button is moused over
         this.style.background = 'red'; // change color of string when mouse is clicked
+        // setTimeout(() => {
+        // }, 1500);
     }
-
 }
 
 function onStringMouseLeave() {
