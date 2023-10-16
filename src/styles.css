@@ -1,12 +1,44 @@
-/* Add this CSS to your "styles.css" file */
+/* body */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: #F2E4E1;
+    color: #48453E;
+}
 
-#container {
+/* Screen Container */
+#screenContainer {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Start Screen */
+#startScreen {
+    width: 100%;
+    height: 100%;
+    background: #F2E4E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(0); /* Initial position */
+    transition: transform 1s ease-in-out; /* Add a smooth transition effect */
+}
+
+/* Guitar Screen */
+#guitarScreen {
+    width: 100%;
+    height: 100%;
     align-items: center;
     justify-content: space-evenly;
     justify-items: center;
     width: 100%;
     height: 100vh;
     background: #F2E4E1;
+    transform: translateY(100%); /* Initially off the screen */
+    transition: transform 1s ease-in-out; /* Add a smooth transition effect */
 }
 
 #title {
@@ -30,8 +62,9 @@
 #lines {
     width: 100%;
     height: 100%;
-    opacity: 0.5; 
-    pointer-events: none; /* Allows clicks to pass through */
+    opacity: 0.5;
+    pointer-events: none;
+    /* Allows clicks to pass through */
 }
 
 #lines div {
@@ -104,10 +137,12 @@ div.string button {
     border: none;
     width: 30px;
     height: 30px;
-    transition: background-color 0.5s; /* Default transition duration */
+    transition: background-color 0.5s;
+    /* Default transition duration */
 
     /* Shorter transition duration when turning on (hover) */
     &:hover {
-        transition: background-color 0.2s; /* Adjust this duration for turning on */
+        transition: background-color 0.2s;
+        /* Adjust this duration for turning on */
     }
 }

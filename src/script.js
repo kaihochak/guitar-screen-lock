@@ -9,6 +9,92 @@ var stringsClicked = [];
 var correctFrets = ["f2s4", "f3s5", "f2s6"]; // D major
 var correctStrings = ["strum3", "strum4", "strum5", "strum6"]; // D major
 
+// Define a variable to track the current screen
+let currentScreen = 'startScreen';
+
+function switchScreen() {
+    const startScreen = document.getElementById('startScreen');
+    const guitarScreen = document.getElementById('guitarScreen');
+    const unlockedScreen = document.getElementById('unlockedScreen');
+
+    if (currentScreen === 'startScreen') {
+        startScreen.style.transform = 'translateY(0)'; // Slide the start screen in
+        startScreen.style.display = 'flex';
+        guitarScreen.style.transform = 'translateY(100%)'; // Slide the guitar screen out
+        guitarScreen.style.display = 'none';
+        unlockedScreen.style.transform = 'translateY(100%)'; // Slide the unlocked screen out
+    } else if (currentScreen === 'guitarScreen') {
+        startScreen.style.transform = 'translateY(-100%)'; // Slide the start screen out
+        startScreen.style.display = 'none';
+        guitarScreen.style.transform = 'translateY(0)'; // Slide the guitar screen in
+        guitarScreen.style.display = 'flex';
+        unlockedScreen.style.transform = 'translateY(100%)'; // Slide the unlocked screen out
+    } else if (currentScreen === 'unlockedScreen') {
+        startScreen.style.transform = 'translateY(-100%)'; // Slide the start screen out
+        guitarScreen.style.transform = 'translateY(-100%)'; // Slide the guitar screen out
+        unlockedScreen.style.transform = 'translateY(0)'; // Slide the unlocked screen in
+    }
+}
+
+function initSlideUpGesture() {
+    const startScreen = document.getElementById('startScreen');
+    const guitarScreen = document.getElementById('guitarScreen');
+
+    let startY = null;
+
+    function handleStart(event) {
+        if (event.touches) {
+            // Touch events
+            startY = event.touches[0].clientY;
+        } else {
+            // Mouse events
+            startY = event.clientY;
+            console.log("Mouse down at " + startY);
+        }
+    }
+
+    function handleMove(event) {
+        if (startY !== null) {
+            let currentY;
+            if (event.touches) {
+                // Touch events
+                currentY = event.touches[0].clientY;
+            } else {
+                // Mouse events
+                currentY = event.clientY;
+                console.log("Mouse move at " + currentY);
+            }
+
+            // Calculate the distance between the start and current touch/mouse positions
+            // and determine if the user is sliding up to the guitar screen
+            const deltaY = currentY - startY;
+            let threshold = event.touches? 10 : 2;
+            if (deltaY < -threshold) { // Adjust the threshold as needed
+                // Transition to the guitar screen
+                console.log("Transitioning to guitar screen");
+                currentScreen = 'guitarScreen';
+                switchScreen();
+            } else if (deltaY > threshold) { // Adjust the threshold as needed
+                // Transition to the start screen
+                console.log("Transitioning to start screen");
+                currentScreen = 'startScreen';
+                switchScreen();
+            }
+            startY = null;
+        }
+    }
+
+    // support for touch events
+    document.addEventListener('touchstart', handleStart);
+    document.addEventListener('touchmove', handleMove);
+
+    // support for mouse events
+    document.addEventListener('mousedown', handleStart);
+    document.addEventListener('mousemove', handleMove);
+}
+
+
+
 function onFretClick() {
     console.log("Clicked fret # " + this.id);
     logButtonID(this.id); // Log the ID when the button is clicked
@@ -88,6 +174,16 @@ function reset() {
     });
 }
 
+function unlockPhone() {
+    // Transition to the unlocked screen
+    const guitarScreen = document.getElementById('guitarScreen');
+    const unlockedScreen = document.getElementById('unlockedScreen');
+
+    guitarScreen.style.display = 'none';
+    unlockedScreen.style.display = 'block';
+    currentScreen = 'unlockedScreen';
+}
+
 function initVerification() {
     document.querySelector('h1').addEventListener('click', function () {
         console.log("verifying input chord");
@@ -99,6 +195,7 @@ function initVerification() {
             console.log("correct chord entered . . . unlocking phone");
             // TODO: change page to unlocked phone screen
             document.querySelector('body').style.background = 'green'; //temp
+            unlockPhone();
         } else {
             console.log("incorrect chord . . . clearing entry");
             reset();
@@ -107,6 +204,7 @@ function initVerification() {
 }
 
 function init() {
+    initSlideUpGesture();
     bindFretButtonsToFunction();
     bindStringButtonsToFunction();
     initVerification();
