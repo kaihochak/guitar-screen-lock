@@ -2,15 +2,15 @@
 
 #container {
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
+    justify-items: center;
     width: 100%;
     height: 100vh;
     background: #F2E4E1;
-
 }
 
 #title {
-    height: 5vh;
+    /* height: 15vh; */
     font-family: 'Playfair Display', serif;
     text-decoration: none;
     color: #E29752;
@@ -18,11 +18,12 @@
 
 /* guitar */
 #guitar {
-    width: 350px;
-    height: 85vh;
+    width: 250px;
+    height: 60vh;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    perspective: 100px;
 }
 
 /* lines */
@@ -71,11 +72,10 @@ button.fret:hover {
 
 /* Stringsß */
 #strings {
-    display: grid;
     grid-template-columns: repeat(6, 1fr);
     background: #AFB1AE;
     width: 100%;
-    height: 50%;
+    height: 30%;
     gap: 1px;
     padding: 3px;
     border-radius: 10px;

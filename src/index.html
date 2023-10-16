@@ -1,105 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Guitar Screen Lock</title>
 
-    <link href="styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<body>
-
+  <body>
     <!-- Unlocked Screen -->
 
     <!-- main content -->
-    <div id="container" class="flex flex-col">
+    <div id="container" class="flex flex-col p-4">
+      <!-- Title -->
+      <div id="title" class="text-center">
+        <h1 class="text-[20px]">Guitar Screen Lock</h1>
+        <p class="text-[20px] pt-6">Play the Chord to unlock!</p>
+      </div>
 
-        <!-- Title -->
-        <h1 id="title" class="text-3xl font-bold underline ">
-            Guitar Screen Lock
-        </h1>
+      <!-- Guitar -->
 
-        <!-- Guitar -->
-        <div id="guitar" class="relative flex flex-col">
-
-             <!-- Lines Div -->
-             <div 
-                id="lines" 
-                class="absolute flex flex-row justify-around mx-[2px] 
-                        top-0 left-0 right-0 bottom-0 z-index-10">
-                <div id="l1" class="line"></div>
-                <div id="l2" class="line"></div>
-                <div id="l3" class="line"></div>
-                <div id="l4" class="line"></div>
-                <div id="l5" class="line"></div>
-                <div id="l6" class="line"></div>
-            </div>
-
-            <!-- Fretboard -->
-            <div id="fretboard" 
-                class="border-x-pink-500 border-2 rounded-lg
-                        grid grid-cols-4 gap-4">
-                <!-- fret 1 -->
-                <button id="f1s1" class="fret"></button>
-                <button id="f1s2" class="fret"></button>
-                <button id="f1s3" class="fret"></button>
-                <button id="f1s4" class="fret"></button>
-                <button id="f1s5" class="fret"></button>
-                <button id="f1s6" class="fret"></button>
-                <!-- fret 2 -->
-                <button id="f2s1" class="fret"></button>
-                <button id="f2s2" class="fret"></button>
-                <button id="f2s3" class="fret"></button>
-                <button id="f2s4" class="fret"></button>
-                <button id="f2s5" class="fret"></button>
-                <button id="f2s6" class="fret"></button>
-                <!-- fret 3 -->
-                <button id="f3s1" class="fret"></button>
-                <button id="f3s2" class="fret"></button>
-                <button id="f3s3" class="fret"></button>
-                <button id="f3s4" class="fret"></button>
-                <button id="f3s5" class="fret"></button>
-                <button id="f3s6" class="fret"></button>
-            </div>
-
-            <!-- Strings -->
-            <div id="strings" 
-                class="grid grid-cols-6 border-2 gap-4">
-                <div id="s1" class="string">
-                    <button id="strum1"></button>
-                </div>
-                <div id="s2" class="string">
-                    <button id="strum2"></button>
-                </div>
-                <div id="s3" class="string">
-                    <button id="strum3"></button>
-                </div>
-                <div id="s4" class="string">
-                    <button id="strum4"></button>
-                </div>
-                <div id="s5" class="string">
-                    <button id="strum5"></button>
-                </div>
-                <div id="s6" class="string">
-                    <button id="strum6"></button>
-                </div>
-            </div>
+      <div id="guitar" class="flex flex-col">
+        <!-- Lines Div -->
+        <div
+          id="lines"
+          class="absolute flex flex-row justify-around
+                    top-0 left-0 right-0 bottom-0 z-index-10"
+        >
+          <div id="l1" class="line"></div>
+          <div id="l2" class="line"></div>
+          <div id="l3" class="line"></div>
+          <div id="l4" class="line"></div>
+          <div id="l5" class="line"></div>
+          <div id="l6" class="line"></div>
         </div>
+
+        <!-- Fretboard -->
+        <div
+          id="fretboard"
+          class="border-x-pink-500 border-2 rounded-lg grid grid-cols-4 gap-4"
+        >
+          <!-- fret 1 -->
+          <button id="f1s1" class="fret"></button>
+          <button id="f1s2" class="fret"></button>
+          <button id="f1s3" class="fret"></button>
+          <button id="f1s4" class="fret"></button>
+          <button id="f1s5" class="fret"></button>
+          <button id="f1s6" class="fret"></button>
+          <!-- fret 2 -->
+          <button id="f2s1" class="fret"></button>
+          <button id="f2s2" class="fret"></button>
+          <button id="f2s3" class="fret"></button>
+          <button id="f2s4" class="fret"></button>
+          <button id="f2s5" class="fret"></button>
+          <button id="f2s6" class="fret"></button>
+          <!-- fret 3 -->
+          <button id="f3s1" class="fret"></button>
+          <button id="f3s2" class="fret"></button>
+          <button id="f3s3" class="fret"></button>
+          <button id="f3s4" class="fret"></button>
+          <button id="f3s5" class="fret"></button>
+          <button id="f3s6" class="fret"></button>
+        </div>
+
+        <!-- Strings -->
+        <div id="strings" class="grid grid-cols-6 border-2 gap-4">
+          <div id="s1" class="string">
+            <button id="strum1"></button>
+          </div>
+          <div id="s2" class="string">
+            <button id="strum2"></button>
+          </div>
+          <div id="s3" class="string">
+            <button id="strum3"></button>
+          </div>
+          <div id="s4" class="string">
+            <button id="strum4"></button>
+          </div>
+          <div id="s5" class="string">
+            <button id="strum5"></button>
+          </div>
+          <div id="s6" class="string">
+            <button id="strum6"></button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Unlocked Screen -->
 
-
     <script src="script.js"></script>
-
-</body>
-
+  </body>
 </html>
