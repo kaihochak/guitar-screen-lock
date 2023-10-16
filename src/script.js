@@ -18,16 +18,16 @@ function switchScreen() {
     const unlockedScreen = document.getElementById('unlockedScreen');
 
     if (currentScreen === 'startScreen') {
-        startScreen.style.transform = 'translateY(0)'; // Slide the start screen in
         startScreen.style.display = 'flex';
-        guitarScreen.style.transform = 'translateY(100%)'; // Slide the guitar screen out
+        startScreen.style.transform = 'translateY(0)'; // Slide the start screen in
         guitarScreen.style.display = 'none';
+        guitarScreen.style.transform = 'translateY(100%)'; // Slide the guitar screen out
         unlockedScreen.style.transform = 'translateY(100%)'; // Slide the unlocked screen out
     } else if (currentScreen === 'guitarScreen') {
-        startScreen.style.transform = 'translateY(-100%)'; // Slide the start screen out
-        startScreen.style.display = 'none';
         guitarScreen.style.transform = 'translateY(0)'; // Slide the guitar screen in
         guitarScreen.style.display = 'flex';
+        startScreen.style.transform = 'translateY(-100%)'; // Slide the start screen out
+        startScreen.style.display = 'none';
         unlockedScreen.style.transform = 'translateY(100%)'; // Slide the unlocked screen out
     } else if (currentScreen === 'unlockedScreen') {
         startScreen.style.transform = 'translateY(-100%)'; // Slide the start screen out
@@ -36,7 +36,7 @@ function switchScreen() {
     }
 }
 
-function initSlideUpGesture() {
+function initSlideUpGesture2() {
     const startScreen = document.getElementById('startScreen');
     const guitarScreen = document.getElementById('guitarScreen');
 
@@ -53,12 +53,70 @@ function initSlideUpGesture() {
         }
     }
 
-    function handleMove(event) {
+    function handleEnd(event) {
         if (startY !== null) {
             let currentY;
-            if (event.touches) {
+            if (event.changedTouches) {
                 // Touch events
-                currentY = event.touches[0].clientY;
+                currentY = event.changedTouches[0].clientY;
+            } else {
+                // Mouse events
+                currentY = event.clientY;
+                console.log("Mouse move at " + currentY);
+            }
+
+            // Calculate the distance between the start and current touch/mouse positions
+            // and determine if the user has slid up to at least half the screen
+            const deltaY = currentY - startY;
+            const screenHeight = window.innerHeight; // Get the screen height
+
+            const threshold = event.changedTouches ? (screenHeight / 3) : 2;
+
+            console.log("Delta Y: " + deltaY);
+            console.log("Threshold: " + -threshold);
+            console.log("Screen height: " + (-screenHeight / 3));
+            if (deltaY < -screenHeight / 2) {
+                // Transition to the guitar screen
+                console.log("Transitioning to guitar screen");
+                currentScreen = 'guitarScreen';
+                switchScreen();
+            }
+            startY = null;
+        }
+    }
+
+    // support for touch events
+    document.addEventListener('touchstart', handleStart);
+    document.addEventListener('touchend', handleEnd);
+
+    // support for mouse events
+    document.addEventListener('mousedown', handleStart);
+    document.addEventListener('mouseup', handleEnd);
+}
+
+
+
+function initSlideUpGesture() {
+
+    let startY = null;
+
+    function handleStart(event) {
+        if (event.touches) {
+            // Touch events
+            startY = event.touches[0].clientY;
+        } else {
+            // Mouse events
+            startY = event.clientY;
+            console.log("Mouse down at " + startY);
+        }
+    }
+
+    function handleEnd(event) {
+        if (startY !== null) {
+            let currentY;
+            if (event.changedTouches) {
+                // Touch events
+                currentY = event.changedTouches[0].clientY;
             } else {
                 // Mouse events
                 currentY = event.clientY;
@@ -68,7 +126,13 @@ function initSlideUpGesture() {
             // Calculate the distance between the start and current touch/mouse positions
             // and determine if the user is sliding up to the guitar screen
             const deltaY = currentY - startY;
-            let threshold = event.touches? 10 : 2;
+            const screenHeight = window.innerHeight; // Get the screen height
+            const threshold = event.changedTouches ? (screenHeight / 3) : 2;
+
+            console.log("Delta Y: " + deltaY);
+            console.log("Threshold: " + -threshold);
+            console.log("Screen height: " + (-screenHeight / 3));
+
             if (deltaY < -threshold) { // Adjust the threshold as needed
                 // Transition to the guitar screen
                 console.log("Transitioning to guitar screen");
@@ -86,14 +150,12 @@ function initSlideUpGesture() {
 
     // support for touch events
     document.addEventListener('touchstart', handleStart);
-    document.addEventListener('touchmove', handleMove);
+    document.addEventListener('touchend', handleEnd);
 
     // support for mouse events
     document.addEventListener('mousedown', handleStart);
-    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('mouseup', handleEnd);
 }
-
-
 
 function onFretClick() {
     console.log("Clicked fret # " + this.id);

@@ -3,8 +3,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    background: #F2E4E1;
     color: #48453E;
+    background-image: url(./img/wallpaper.jpg);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* Screen Container */
@@ -19,12 +22,15 @@ body {
 #startScreen {
     width: 100%;
     height: 100%;
-    background: #F2E4E1;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: translateY(0); /* Initial position */
-    transition: transform 1s ease-in-out; /* Add a smooth transition effect */
+    /* transition: transform 1s ease-in-out;  */
+    background-image: url(./img/wallpaper.jpg);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 /* Guitar Screen */
@@ -36,9 +42,12 @@ body {
     justify-items: center;
     width: 100%;
     height: 100vh;
-    background: #F2E4E1;
     transform: translateY(100%); /* Initially off the screen */
-    transition: transform 1s ease-in-out; /* Add a smooth transition effect */
+    /* transition: transform 1s ease-in-out;  */
+    background-image: url(./img/wallpaper.jpg);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #title {
