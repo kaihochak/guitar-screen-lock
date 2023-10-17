@@ -175,6 +175,12 @@ function onStringTouchMove(event) {
     logButtonID(targetID); // Log the ID when the button is clicked
     strings[targetID].style.width = '5px';
     strings[targetID].style.background = '#CA3401';
+
+    setTimeout(() => {
+        strings[targetID].style.width = '1px';
+        strings[targetID].style.background = '#826352';
+    }, 500);
+
 }
 
 function onStringTouchEnd() {
@@ -209,15 +215,19 @@ function handleStrumStart(event) {
 }
 
 function handleStrumEnd(event) {
-    if (event.touches) {
-        // Touch events
-    } else {
-        // Mouse events
-        if (event.button === 0 && !event.target.classList.contains('fret')) {
+
+    if (!event.target.classList.contains('fret')) {
+        if (event.touches || event.button === 0) {
             isLeftMouseDown = false;
             verifyChord();
         }
     }
+
+
+    // if (event.button === 0 && !event.target.classList.contains('fret')) {
+    //     isLeftMouseDown = false;
+    //     verifyChord();
+    // }
 }
 
 function onFretClick() {
