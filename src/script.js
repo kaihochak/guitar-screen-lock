@@ -31,7 +31,7 @@ const lockScreenButton = document.getElementById('lockScreen');
 
 // current combination of frets, strings, and the right combination
 var fretsClicked = [];
-var stringsClicked = [];
+var stringsStrummed = [];
 // password 
 var correctFrets = ["f2s4", "f3s5", "f2s6"]; // D major
 var correctStrings = ["strum3", "strum4", "strum5", "strum6"]; // D major
@@ -40,12 +40,13 @@ var correctStrings = ["strum3", "strum4", "strum5", "strum6"]; // D major
 let currentScreen = 'startScreen';
 
 // Flag to track whether the left mouse button is currently down
-let isLeftMouseDown = false;
+let isStrummingOn = false;
 
 function switchScreen() {
     if (currentScreen === 'startScreen') {
         initSlideUpGesture();
         resetGuitar();
+        isStrummingOn = false; 
         startScreen.style.display = 'flex';
         startScreen.style.transform = 'translateY(0)'; // Slide the start screen in
         guitarScreen.style.display = 'none';
@@ -54,7 +55,6 @@ function switchScreen() {
     } else if (currentScreen === 'guitarScreen') {
         bindFretButtonsToFunction();
         bindStringButtonsToFunction();
-        initStrumming();
         guitarScreen.style.transform = 'translateY(0)'; // Slide the guitar screen in
         guitarScreen.style.display = 'flex';
         startScreen.style.transform = 'translateY(-100%)'; // Slide the start screen out
@@ -134,7 +134,6 @@ function handleEnd(event) {
     }
 }
 
-
 // Functions for Guitar Screen
 
 function bindFretButtonsToFunction() {
@@ -145,51 +144,27 @@ function bindFretButtonsToFunction() {
     });
 }
 
+
 function bindStringButtonsToFunction() {
     var strings = document.querySelectorAll("div.string button");
 
     strings.forEach((string) => {
-        string.addEventListener('mousedown', onStringMouseDown);
-        string.addEventListener('mouseover', onStringMouseOver);
-        string.addEventListener('mouseleave', onStringMouseLeave);
+
+        // Support for mouse
+        string.addEventListener('mousedown', onStringStrum);
+        string.addEventListener('mouseover', onStringSlide);
+        string.addEventListener('mouseleave', onStringStrumEnd);
+        string.addEventListener('mouseup', onStringStrumEnd);
+
+        // Support for touch
+        string.addEventListener('touchstart', onStringStrum);
+        string.addEventListener('touchmove', onStringSlide);
+        string.addEventListener('touchend', onStringStrumEnd);
     });
-}
-
-function initStrumming() {
-
-    // support for touch events
-    document.addEventListener('touchstart', handleStrumStart);
-    document.addEventListener('touchend', handleEnd);
-
-    // support for mouse events
-    document.addEventListener("mousedown", handleStrumStart);
-    document.addEventListener("mouseup", handleStrumEnd);
-}
-
-function handleStrumStart(event) {
-    if (event.touches) {
-        // Touch events
-    } else {
-        // Mouse events
-        if (event.button === 0) isLeftMouseDown = true;
-    }
-}
-
-function handleStrumEnd(event) {
-    if (event.touches) {
-        // Touch events
-    } else {
-        // Mouse events
-        if (event.button === 0 && !event.target.classList.contains('fret')) {
-            isLeftMouseDown = false;
-            verifyChord();
-        }
-    }
 }
 
 function onFretClick() {
     console.log("Clicked fret # " + this.id);
-    logButtonID(this.id); // Log the ID when the button is clicked
 
     if (this.style.background != 'red') {
         this.style.background = 'red'; // change color of fret to indicate being pressed
@@ -202,46 +177,56 @@ function onFretClick() {
     console.log(fretsClicked); // log current fret combination
 }
 
-function onStringMouseDown() {
+function onStringStrum(event) {
 
-    console.log("Clicked string # " + this.id);
-    logButtonID(this.id); // Log the ID when the button is clicked
+    console.log("Strummed string # " + this.id);
 
+    isStrummingOn = true;
     strings[this.id].style.width = '5px';
     strings[this.id].style.background = '#CA3401';
+
+    updateStringsStrummed(this.id);
+    stringsBackToNormal(this.id);
 }
 
-function onStringMouseOver(event) {
-    if (event.buttons === 1) { // Check if the left mouse button is clicked
+function onStringSlide(event) {
+
+    // For touch events
+    if (event.touches) {
+        // console.log("Touched string # " + targetElement.id);
+        console.log(this.id);
+        var x = event.touches[0].clientX;
+        var y = event.touches[0].clientY;
+        console.log(x + ", " + y);
+
+    } else if (event.buttons === 1) {
+        // For mouse events: left button should be clicked
         console.log("Mouse over string # " + this.id);
-        logButtonID(this.id); // Log the ID when the button is moused over
-        stringsClicked.push(this.id); // add this fret to the input combination
         strings[this.id].style.width = '5px';
         strings[this.id].style.background = '#CA3401';
     }
+
+    if (!stringsStrummed.includes(this.id) && isStrummingOn)
+        stringsStrummed.push(this.id); // add this fret to the input combination
 }
 
-function onStringMouseLeave(event) {
+function onStringStrumEnd(event) {
+
+    console.log("onStringStrumEnd()");
     if (event.buttons === 1) { // Check if the left mouse button is clicked
-        stringsClicked.push(this.id); // add this fret to the input combination
-        setTimeout(() => {
-            strings[this.id].style.width = '1px';
-            strings[this.id].style.background = '#826352';
-        }, 500);
+        console.log("clicked is On");
+        if (!stringsStrummed.includes(this.id) && isStrummingOn) {
+            stringsStrummed.push(this.id); // add this fret to the input combination
+        }
+
+        updateStringsStrummed(this.id);
+        stringsBackToNormal(this.id);
+        resetStrings();
+
+    } else if (!isStrummingOn) {
+        // resetGuitar();
     }
-}
-
-function arraysAreEqual(arr1, arr2) {
-    // Remove duplicates from the arrays
-    const uniqueArr1 = arr1.filter((value, index, self) => self.indexOf(value) === index);
-    const uniqueArr2 = arr2.filter((value, index, self) => self.indexOf(value) === index);
-
-    // Sort the unique arrays and then compare them
-    uniqueArr1.sort();
-    uniqueArr2.sort();
-
-    // Check if the arrays are equal
-    return JSON.stringify(uniqueArr1) === JSON.stringify(uniqueArr2);
+    
 }
 
 function verifyChord() {
@@ -249,7 +234,7 @@ function verifyChord() {
     const guitar = document.getElementById('guitar');
 
     if (arraysAreEqual(fretsClicked, correctFrets) && 
-        arraysAreEqual(stringsClicked, correctStrings)) {
+        arraysAreEqual(stringsStrummed, correctStrings)) {
         console.log("correct chord entered . . . unlocking phone");
         currentScreen = 'unlockScreen';
         switchScreen();
@@ -272,27 +257,57 @@ function verifyChord() {
     }
 }
 
+function updateStringsStrummed(id) {
+    if (!stringsStrummed.includes(id) && isStrummingOn) {
+        stringsStrummed.push(id); // add this fret to the input combination
+    }
+    printChords();
+}
+
+function stringsBackToNormal(id) {
+
+    setTimeout(() => {
+        strings[id].style.width = '1px';
+        strings[id].style.background = '#826352';
+    }, 500);
+}
+
+function arraysAreEqual(arr1, arr2) {
+    // Remove duplicates from the arrays
+    const uniqueArr1 = arr1.filter((value, index, self) => self.indexOf(value) === index);
+    const uniqueArr2 = arr2.filter((value, index, self) => self.indexOf(value) === index);
+
+    // Sort the unique arrays and then compare them
+    uniqueArr1.sort();
+    uniqueArr2.sort();
+
+    // Check if the arrays are equal
+    return JSON.stringify(uniqueArr1) === JSON.stringify(uniqueArr2);
+}
+
 function printChords() {
-    console.log("Frets: " + fretsClicked);
-    console.log("Strings: " + stringsClicked);
+    console.log("   Frets: " + fretsClicked);
+    console.log("   Strings: " + stringsStrummed);
 }
 
 function resetGuitar() {
-    fretsClicked = [];
-    stringsClicked = [];
 
+    console.log("resetGuitar()");
+    fretsClicked = [];
     document.querySelectorAll("button.fret").forEach((fret) => {
         fret.style.background = '';
     });
 
+    resetStrings();
+}
+
+function resetStrings() {
+
+    stringsStrummed = [];
     document.querySelectorAll("div.string button").forEach((string) => {
         string.style.background = '';
     });
 
-}
-
-function logButtonID(id) {
-    console.log("Button ID: " + id);
 }
 
 // Functions for unlock screen
