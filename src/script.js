@@ -48,14 +48,12 @@ function initSlideUpGesture() {
         } else {
             // Mouse events
             startY = event.clientY;
-            console.log("Mouse down at " + startY);
         }
     }
 
     function handleEnd(event) {
         if (startY !== null) {
 
-            console.log(window.innerHeight * 1 / 6);
             // if start screen, startY should be at the bottom of the screen
             // if guitar screen, startY should be at the top of the screen
             if ((currentScreen === 'startScreen' && startY > window.innerHeight * 5 / 6)
@@ -69,7 +67,6 @@ function initSlideUpGesture() {
                 } else {
                     // Mouse events
                     currentY = event.clientY;
-                    console.log("Mouse move at " + currentY);
                 }
 
                 // Calculate the distance between the start and current touch/mouse positions
@@ -78,19 +75,11 @@ function initSlideUpGesture() {
                 const screenHeight = window.innerHeight; // Get the screen height
                 const threshold = event.changedTouches ? (screenHeight / 3) : 2;
 
-                console.log("Delta Y: " + deltaY);
-                console.log("Threshold: " + -threshold);
-                console.log("Screen height: " + (-screenHeight / 3));
-
                 if (deltaY < -threshold) { // Adjust the threshold as needed
                     // Transition to the guitar screen
-                    console.log("Transitioning to guitar screen");
-                    currentScreen = 'guitarScreen';
                     switchScreen();
                 } else if (deltaY > threshold) { // Adjust the threshold as needed
                     // Transition to the start screen
-                    console.log("Transitioning to start screen");
-                    currentScreen = 'startScreen';
                     switchScreen();
                 }
                 startY = null;
@@ -144,14 +133,11 @@ function onStringMouseOver() {
         console.log("Mouse over string # " + this.id);
         logButtonID(this.id); // Log the ID when the button is moused over
         this.style.background = 'red'; // change color of string when mouse is clicked
-        // setTimeout(() => {
-        // }, 1500);
     }
 }
 
 function onStringMouseLeave() {
     if (event.buttons === 1) { // Check if the left mouse button is clicked
-
         setTimeout(() => {
             this.style.background = '';
         }, 500);
