@@ -12,6 +12,23 @@ var correctStrings = ["strum3", "strum4", "strum5", "strum6"]; // D major
 // Define a variable to track the current screen
 let currentScreen = 'startScreen';
 
+// Strings
+const string1 = document.getElementById('l1');
+const string2 = document.getElementById('l2');
+const string3 = document.getElementById('l3');
+const string4 = document.getElementById('l4');
+const string5 = document.getElementById('l5');
+const string6 = document.getElementById('l6');
+
+let strings = {
+    strum1: string1,
+    strum2: string2,
+    strum3: string3,
+    strum4: string4,
+    strum5: string5,
+    strum6: string6
+}
+
 function switchScreen() {
     const startScreen = document.getElementById('startScreen');
     const guitarScreen = document.getElementById('guitarScreen');
@@ -44,7 +61,6 @@ function initSlideUpGesture() {
         if (event.touches) {
             // Touch events
             startY = event.touches[0].clientY;
-
         } else {
             // Mouse events
             startY = event.clientY;
@@ -77,9 +93,12 @@ function initSlideUpGesture() {
 
                 if (deltaY < -threshold) { // Adjust the threshold as needed
                     // Transition to the guitar screen
+                    currentScreen = 'guitarScreen';
                     switchScreen();
                 } else if (deltaY > threshold) { // Adjust the threshold as needed
                     // Transition to the start screen
+                    console.log("Transitioning to start screen");
+                    currentScreen = 'startScreen';
                     switchScreen();
                 }
                 startY = null;
@@ -132,14 +151,18 @@ function onStringMouseOver() {
     if (event.buttons === 1) { // Check if the left mouse button is clicked
         console.log("Mouse over string # " + this.id);
         logButtonID(this.id); // Log the ID when the button is moused over
-        this.style.background = 'red'; // change color of string when mouse is clicked
+        strings[this.id].style.width = '5px';
+        strings[this.id].style.background = '#CA3401';
+        // this.style.background = '#CA3401'; // change color of string when mouse is clicked
     }
 }
 
 function onStringMouseLeave() {
     if (event.buttons === 1) { // Check if the left mouse button is clicked
+
         setTimeout(() => {
-            this.style.background = '';
+            strings[this.id].style.width = '1px';
+            strings[this.id].style.background = '#826352';
         }, 500);
     }
 }
