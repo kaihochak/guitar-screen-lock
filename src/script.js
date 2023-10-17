@@ -149,17 +149,50 @@ function bindStringButtonsToFunction() {
     var strings = document.querySelectorAll("div.string button");
 
     strings.forEach((string) => {
+
+        string.addEventListener('touchstart', onStringTouchStart);
+        string.addEventListener('touchmove', onStringTouchMove);
+        string.addEventListener('touchend', onStringTouchEnd);
+
         string.addEventListener('mousedown', onStringMouseDown);
         string.addEventListener('mouseover', onStringMouseOver);
         string.addEventListener('mouseleave', onStringMouseLeave);
     });
 }
 
+function onStringTouchStart() {
+    console.log("Clicked string # " + this.id);
+    logButtonID(this.id); // Log the ID when the button is clicked
+
+    strings[this.id].style.width = '5px';
+    strings[this.id].style.background = '#CA3401';
+}
+
+function onStringTouchMove(event) {
+    console.log("Clicked string # " + this.id);
+    let targetID = document.elementFromPoint(
+        event.touches[0].clientX, event.touches[0].clientY).id;
+    logButtonID(targetID); // Log the ID when the button is clicked
+    strings[targetID].style.width = '5px';
+    strings[targetID].style.background = '#CA3401';
+}
+
+function onStringTouchEnd() {
+    console.log("Clicked string # " + this.id);
+    logButtonID(this.id); // Log the ID when the button is clicked
+
+    setTimeout(() => {
+        strings[this.id].style.width = '1px';
+        strings[this.id].style.background = '#826352';
+    }, 500);
+}
+
+
 function initStrumming() {
 
     // support for touch events
     document.addEventListener('touchstart', handleStrumStart);
-    document.addEventListener('touchend', handleEnd);
+    document.addEventListener('touchend', handleStrumEnd);
 
     // support for mouse events
     document.addEventListener("mousedown", handleStrumStart);
@@ -245,6 +278,8 @@ function arraysAreEqual(arr1, arr2) {
 }
 
 function verifyChord() {
+
+    console.log("Verifying chord . . .");
 
     const guitar = document.getElementById('guitar');
 
