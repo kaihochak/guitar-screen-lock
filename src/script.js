@@ -167,23 +167,13 @@ function initStrumming() {
 }
 
 function handleStrumStart(event) {
-    if (event.touches) {
-        // Touch events
-    } else {
-        // Mouse events
-        if (event.button === 0) isLeftMouseDown = true;
-    }
+    if (event.button === 0) isLeftMouseDown = true;
 }
 
 function handleStrumEnd(event) {
-    if (event.touches) {
-        // Touch events
-    } else {
-        // Mouse events
-        if (event.button === 0 && !event.target.classList.contains('fret')) {
-            isLeftMouseDown = false;
-            verifyChord();
-        }
+    if (event.button === 0 && !event.target.classList.contains('fret')) {
+        isLeftMouseDown = false;
+        verifyChord();
     }
 }
 
