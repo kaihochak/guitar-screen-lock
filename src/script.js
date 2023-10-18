@@ -35,6 +35,12 @@ var stringsClicked = [];
 // password 
 var correctFrets = ["f2s4", "f3s5", "f2s6"]; // D major
 var correctStrings = ["strum3", "strum4", "strum5", "strum6"]; // D major
+// E minor 7 chord. Extra wrong chord for variation
+var Em7Frets = ["f2s2","f2s3","f3s5","f3s6"];
+var Em7Strings = ["strum1","strum2","strum3","strum4","strum5","strum6",]
+// C Major
+var CMFrets = ["f3s2","f2s3","f1s5"];
+var CMStrings = ["strum2","strum3","strum4","strum5","strum6",]
 
 // Define a variable to track the current screen
 let currentScreen = 'startScreen';
@@ -222,6 +228,31 @@ function handleStrumStart(event) {
     }
 }
 
+function playDMajor() {
+    console.log("playing D major audio clip");
+    var audio = new Audio('/src/audio/Dmajor.mp3');
+    audio.play();
+}
+
+function playE7Minor() {
+    console.log("playing E minor 7 audio clip");
+    var audio = new Audio('/src/audio/Eminor7.mp3');
+    audio.play();
+}
+
+function playCMajor() {
+    console.log("playing bad chord audio clip");
+    var audio = new Audio('/src/audio/Cmajor.mp3');
+    audio.play();
+}
+
+function playBadChord() {
+    console.log("playing bad chord audio clip");
+    var audio = new Audio('/src/audio/bad.mp3');
+    audio.play();
+}
+
+
 function handleStrumEnd(event) {
 
     if (!event.target.classList.contains('fret')) {
@@ -296,6 +327,9 @@ function arraysAreEqual(arr1, arr2) {
 
 function verifyChord() {
 
+    // word around for a weird bug
+    if (currentScreen != 'guitarScreen') {return;}
+
     console.log("Verifying chord . . .");
 
     const guitar = document.getElementById('guitar');
@@ -303,10 +337,36 @@ function verifyChord() {
     if (arraysAreEqual(fretsClicked, correctFrets) && 
         arraysAreEqual(stringsClicked, correctStrings)) {
         console.log("correct chord entered . . . unlocking phone");
+        playDMajor();
         currentScreen = 'unlockScreen';
         switchScreen();
+    } else if (arraysAreEqual(fretsClicked,Em7Frets) &&
+                arraysAreEqual(stringsClicked,Em7Strings)) {
+        console.log("e minor 7 chord played, playing audio then clearing");
+        playE7Minor();
+
+        printChords();
+        resetGuitar();
+        guitar.style.animation = "shake 1s";
+        setTimeout(() => {
+            guitar.style.animation = "";
+        }, 1000);
+    
+    } else if (arraysAreEqual(fretsClicked,CMFrets) &&
+                arraysAreEqual(stringsClicked,CMStrings)) {
+        console.log("C major playing audio then clearing");
+        playCMajor();
+
+        printChords();
+        resetGuitar();
+        guitar.style.animation = "shake 1s";
+        setTimeout(() => {
+            guitar.style.animation = "";
+        }, 1000);
     } else {
         console.log("incorrect chord . . . clearing entry");
+        playBadChord();
+
         printChords();
         resetGuitar();
         guitar.style.animation = "shake 1s";
