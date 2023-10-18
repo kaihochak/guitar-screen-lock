@@ -149,7 +149,6 @@ function bindStringButtonsToFunction() {
     var strings = document.querySelectorAll("div.string button");
 
     strings.forEach((string) => {
-
         string.addEventListener('touchstart', onStringTouchStart);
         string.addEventListener('touchmove', onStringTouchMove);
         string.addEventListener('touchend', onStringTouchEnd);
@@ -168,11 +167,21 @@ function onStringTouchStart() {
     strings[this.id].style.background = '#CA3401';
 }
 
+function updateStrings(targetID) {
+    // only add string if it is not already in the array
+    if (!stringsClicked.includes(targetID)) {
+        stringsClicked.push(targetID); // add this fret to the input combination
+    }
+    console.log(stringsClicked); // log current fret combination
+}
+
 function onStringTouchMove(event) {
     console.log("Clicked string # " + this.id);
     let targetID = document.elementFromPoint(
         event.touches[0].clientX, event.touches[0].clientY).id;
-    logButtonID(targetID); // Log the ID when the button is clicked
+
+    updateStrings(targetID);
+
     strings[targetID].style.width = '5px';
     strings[targetID].style.background = '#CA3401';
 
@@ -192,7 +201,6 @@ function onStringTouchEnd() {
         strings[this.id].style.background = '#826352';
     }, 500);
 }
-
 
 function initStrumming() {
 
@@ -222,7 +230,6 @@ function handleStrumEnd(event) {
             verifyChord();
         }
     }
-
 
     // if (event.button === 0 && !event.target.classList.contains('fret')) {
     //     isLeftMouseDown = false;
