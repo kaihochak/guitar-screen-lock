@@ -230,25 +230,25 @@ function handleStrumStart(event) {
 
 function playDMajor() {
     console.log("playing D major audio clip");
-    var audio = new Audio('/src/audio/Dmajor.mp3');
+    var audio = new Audio('./src/audio/Dmajor.mp3');
     audio.play();
 }
 
 function playE7Minor() {
     console.log("playing E minor 7 audio clip");
-    var audio = new Audio('/src/audio/Eminor7.mp3');
+    var audio = new Audio('./src/audio/Eminor7.mp3');
     audio.play();
 }
 
 function playCMajor() {
     console.log("playing bad chord audio clip");
-    var audio = new Audio('/src/audio/Cmajor.mp3');
+    var audio = new Audio('./src/audio/Cmajor.mp3');
     audio.play();
 }
 
 function playBadChord() {
     console.log("playing bad chord audio clip");
-    var audio = new Audio('/src/audio/bad.mp3');
+    var audio = new Audio('./src/audio/bad.mp3');
     audio.play();
 }
 
@@ -327,7 +327,7 @@ function arraysAreEqual(arr1, arr2) {
 
 function verifyChord() {
 
-    // word around for a weird bug
+    // work around for a weird bug
     if (currentScreen != 'guitarScreen') {return;}
 
     console.log("Verifying chord . . .");
