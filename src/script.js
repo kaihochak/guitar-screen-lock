@@ -37,10 +37,10 @@ var correctFrets = ["f2s4", "f3s5", "f2s6"]; // D major
 var correctStrings = ["strum3", "strum4", "strum5", "strum6"]; // D major
 // E minor 7 chord. Extra wrong chord for variation
 var Em7Frets = ["f2s2","f2s3","f3s5","f3s6"];
-var Em7Strings = ["strum1","strum2","strum3","strum4","strum5","strum6",]
+var Em7Strings = ["strum1","strum2","strum3","strum4","strum5","strum6"]
 // C Major
 var CMFrets = ["f3s2","f2s3","f1s5"];
-var CMStrings = ["strum2","strum3","strum4","strum5","strum6",]
+var CMStrings = ["strum2","strum3","strum4","strum5","strum6"]
 
 // Define a variable to track the current screen
 let currentScreen = 'startScreen';
@@ -175,7 +175,8 @@ function onStringTouchStart() {
 
 function updateStrings(targetID) {
     // only add string if it is not already in the array
-    if (!stringsClicked.includes(targetID)) {
+    if (!stringsClicked.includes(targetID) && Em7Strings.includes(targetID)) { // only add strings to array (Em7 contains all strings)
+
         stringsClicked.push(targetID); // add this fret to the input combination
     }
     console.log(stringsClicked); // log current fret combination
@@ -337,6 +338,7 @@ function verifyChord() {
     if (arraysAreEqual(fretsClicked, correctFrets) && 
         arraysAreEqual(stringsClicked, correctStrings)) {
         console.log("correct chord entered . . . unlocking phone");
+        printChords();
         playDMajor();
         currentScreen = 'unlockScreen';
         switchScreen();
