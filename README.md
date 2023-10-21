@@ -36,7 +36,7 @@ This is the Lock Screen, hold and swipe up to go to the Unlock Screen.
 
 Select the cords you want to play and strum them from left to right. When the wrong cords are struck.
 
-https://github.com/kaihochak/guitar-screen-lock/assets/55485344/d0c63df3-2177-4d03-940c-9078b73fc8de
+https://github.com/kaihochak/guitar-screen-lock/assets/55485344/d82b4227-6ca4-46f4-9ed8-9ab17a959be5
 
 ### Correct Unlock Screen
 
