@@ -26,7 +26,29 @@ OR Follow these simple steps to run the code for The Guitar Unlock on your local
 
 ##Screens
 
+###Lock Screen
+
+This is the Lock Screen, hold and swipe up to go to the Unlock Screen.
+
+![Lock Screen](screens/LockScreen.png)
+
+###Wrong Unlock Screen
+
+Select the cords you want to play and strum them from left to right. When the wrong cords are struck.
+
+https://github.com/kaihochak/guitar-screen-lock/assets/55485344/d0c63df3-2177-4d03-940c-9078b73fc8de
+
+###Correct Unlock Screen
+
+Select the cords you want to play and strum them from left to right. When the right cords are struck.
+
+https://github.com/kaihochak/guitar-screen-lock/assets/55485344/27e26e4f-98be-4ebb-991d-f36b72b533f4
+
 ###Home Screen
+
+This is the home screen, it is displayed when the device is successfully unlocked. 
+
+![Home Screen](screens/HomeScreen.png)
 
 
 
