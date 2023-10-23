@@ -1,7 +1,7 @@
 # The Guitar Screen Unlock
  
 The Guitar Screen Unlock offers an innovative way to access your device, serving as a distinctive alternative to the conventional swipe-to-unlock feature. After brainstorming concepts such as 'Cosmic Unlock' and 'Zodiac Unlocks' 
-(detailed further [here](https://kaihochak.github.io/)), we selected this idea for its unique and enjoyable nature. Throughout the development of this unlocking system, we've implemented enhancements like integrating sound and refining 
+(detailed further [here](https://kaihochak.github.io/screen-unlock-page/)), we selected this idea for its unique and enjoyable nature. Throughout the development of this unlocking system, we've implemented enhancements like integrating sound and refining 
 the user interface to achieve a more modern and seamless experience. For additional details on accessing this feature, please refer to the information provided below.
 
 ## Contributors
@@ -15,7 +15,7 @@ the user interface to achieve a more modern and seamless experience. For additio
 
 These installation tips are a 'key' to simplicity!
 
-[Click here to start unlocking!](https://kaihochak.github.io/)
+[Click here to start unlocking!](https://kaihochak.github.io/guitar-screen-lock/)
 
 OR Follow these simple steps to run the code for The Guitar Unlock on your local machine:
 
